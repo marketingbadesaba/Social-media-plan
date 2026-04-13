@@ -57,6 +57,7 @@
         }
         .image-preview-container img { width: 100%; height: 100%; object-fit: cover; }
 
+        /* استایل‌های اختصاصی برای جلوگیری از بهم ریختگی PDF در RTL */
         @media print {
             .no-print { display: none !important; }
             #pdf-content { width: 800px !important; margin: 0 auto !important; padding: 10px !important; background: white !important; }
@@ -64,8 +65,8 @@
             .optimized-card {
                 break-inside: avoid !important;
                 page-break-inside: avoid !important;
-                margin-bottom: 40px !important;
-                border: 2px solid #eee !important;
+                margin-bottom: 30px !important;
+                border: 1px solid #eee !important;
                 width: 100% !important;
                 display: block !important;
                 box-shadow: none !important;
@@ -87,21 +88,31 @@
                 top: 0 !important;
                 font-size: 18px !important;
                 font-weight: bold !important;
+                color: #1e293b !important;
                 margin: 0 !important;
+                display: block !important;
             }
             .day-card-header .header-stats {
                 position: absolute !important;
                 left: 0 !important;
                 top: 0 !important;
+                text-align: left !important;
+                display: block !important;
             }
             .post-count-badge {
                 font-size: 12px !important;
+                color: #64748b !important;
                 background: #f1f5f9 !important;
                 padding: 4px 10px !important;
                 border-radius: 8px !important;
                 display: inline-block !important;
             }
-            .post-entry { page-break-inside: avoid !important; margin-top: 15px !important; }
+            .post-entry {
+                page-break-inside: avoid !important;
+                margin-top: 15px !important;
+                padding-top: 15px !important;
+                border-top: 1px solid #f8fafc !important;
+            }
             .add-day-btn { display: none !important; }
         }
     </style>
@@ -113,7 +124,7 @@
         <header class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 text-center md:text-right no-print">
             <div>
                 <h1 class="text-3xl font-black text-slate-800 tracking-tight">پلن محتوایی سوشال مدیا</h1>
-                <p class="text-slate-500 mt-1 text-sm font-bold">تولید هوشمند محتوا | نسخه آنلاین</p>
+                <p class="text-slate-500 mt-1 text-sm font-bold">تولید هوشمند محتوا | نسخه گیت‌هاب</p>
             </div>
             <div class="flex flex-wrap justify-center gap-2">
                 <button onclick="openSettingsModal()" title="تنظیمات هوش مصنوعی" class="bg-slate-200 hover:bg-slate-300 text-slate-600 p-2.5 rounded-xl transition-all shadow-sm">
@@ -160,9 +171,12 @@
                     <label class="text-xs font-bold text-slate-500">Google Gemini API Key</label>
                     <input type="password" id="user-api-key" placeholder="کلید خود را اینجا وارد کنید..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 outline-none text-sm">
                 </div>
-                <div class="bg-indigo-50 p-4 rounded-xl">
-                    <p class="text-[10px] text-indigo-700 leading-relaxed font-bold">💡 نکته برای کاربران داخل ایران:</p>
-                    <p class="text-[10px] text-indigo-600 leading-relaxed mt-1">اگر در زمان تولید کپشن خطا دریافت کردید، حتماً از یک فیلترشکن معتبر استفاده کنید. گوگل دسترسی آی‌پی‌های ایران را مسدود کرده است.</p>
+                <div class="bg-indigo-50 p-4 rounded-xl text-[10px] text-indigo-700 leading-relaxed">
+                    <p class="font-bold mb-1">نکات اجرایی:</p>
+                    <ul class="list-disc pr-4 space-y-1">
+                        <li>گوگل دسترسی مستقیم آی‌پی ایران را مسدود کرده است. حتماً از VPN با کیفیت استفاده کنید.</li>
+                        <li>کلید شما به صورت محلی در مرورگر ذخیره می‌شود و امنیت آن حفظ می‌گردد.</li>
+                    </ul>
                 </div>
                 <div class="flex gap-2">
                     <button onclick="closeSettingsModal()" class="flex-1 bg-slate-100 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-200">بستن</button>
@@ -203,7 +217,7 @@
                 </div>
 
                 <input type="text" id="post-title" required placeholder="عنوان محتوا" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 outline-none">
-                <textarea id="post-desc" rows="2" placeholder="توضیحات تکمیلی (مثلاً: لحن صمیمانه، تاکید بر قیمت و...)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 resize-none text-sm outline-none"></textarea>
+                <textarea id="post-desc" rows="2" placeholder="توضیحات تکمیلی (جهت راهنمایی هوش مصنوعی)" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 resize-none text-sm outline-none"></textarea>
 
                 <div class="grid grid-cols-2 gap-4">
                     <select id="post-platform" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 outline-none">
@@ -270,7 +284,7 @@
             const toast = document.getElementById('toast');
             document.getElementById('toast-text').innerText = msg;
             toast.classList.remove('translate-y-32');
-            setTimeout(() => toast.classList.add('translate-y-32'), 4000);
+            setTimeout(() => toast.classList.add('translate-y-32'), 5000);
         }
 
         function openSettingsModal() {
@@ -336,11 +350,15 @@
             const userPrompt = `موضوع: "${title}". توضیحات تکمیلی: "${description || 'ندارد'}". پلتفرم: "${platform}"، دسته محتوا: "${category}".`;
 
             try {
-                const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${effectiveKey}`;
+                // استفاده از v1beta که برای مدل‌های جدید پایدارتر است
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${effectiveKey}`;
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ role: "user", parts: [{ text: systemPrompt + "\n\n" + userPrompt }] }] })
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: userPrompt }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
                 });
 
                 const result = await response.json();
@@ -349,15 +367,14 @@
                     showToast("کپشن با موفقیت تولید شد ✨");
                 } else {
                     const status = response.status;
-                    let msg = "خطای ناشناخته";
-                    if (status === 403) msg = "گوگل دسترسی شما را مسدود کرده است (تحریم). لطفاً از فیلترشکن معتبر استفاده کنید.";
-                    if (status === 400) msg = "کلید API معتبر نیست یا درخواست اشتباه است.";
-                    if (status === 429) msg = "تعداد درخواست‌های شما بیش از حد مجاز رایگان است.";
-                    showToast(`خطای هوش مصنوعی: ${msg}`);
+                    let msg = `خطا: ${status}`;
+                    if (status === 403) msg = "۴۰۳ - دسترسی مسدود است (احتمالاً نشت آی‌پی ایران یا فیلترشکن ضعیف).";
+                    if (status === 401 || status === 400) msg = "کلید API معتبر نیست یا اشتباه وارد شده است.";
+                    showToast(`${msg}`);
                     console.error("Gemini Error:", result);
                 }
             } catch (error) {
-                showToast("خطای شبکه. فیلترشکن خود را بررسی کنید.");
+                showToast("خطای شبکه! لطفاً فیلترشکن خود را بررسی کنید.");
             } finally {
                 aiBtn.disabled = false;
                 aiIcon.classList.remove('animate-spin-custom');
