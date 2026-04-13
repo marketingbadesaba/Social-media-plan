@@ -114,7 +114,7 @@
         <header class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 text-center md:text-right no-print">
             <div>
                 <h1 class="text-3xl font-black text-slate-800 tracking-tight">پلن محتوایی سوشال مدیا</h1>
-                <p class="text-slate-500 mt-1 text-sm font-bold">تولید هوشمند محتوا با هوش مصنوعی (نسخه نهایی)</p>
+                <p class="text-slate-500 mt-1 text-sm font-bold">مدیریت هوشمند | نسخه عیب‌یاب گیت‌هاب</p>
             </div>
             <div class="flex flex-wrap justify-center gap-2">
                 <button onclick="openSettingsModal()" title="تنظیمات هوش مصنوعی" class="bg-slate-200 hover:bg-slate-300 text-slate-600 p-2.5 rounded-xl transition-all shadow-sm">
@@ -134,7 +134,7 @@
 
         <!-- Stats Section -->
         <div id="stats-container" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 no-print text-center text-slate-800">
-            <!-- Stats Injected Here -->
+            <!-- Stats -->
         </div>
 
         <div id="pdf-content">
@@ -142,26 +142,28 @@
         </div>
 
         <div id="empty-state" class="hidden flex flex-col items-center justify-center p-16 bg-white rounded-[2rem] border-2 border-dashed border-slate-200">
-            <h3 class="text-lg font-bold text-slate-800">تقویم محتوایی شما خالی است</h3>
+            <h3 class="text-lg font-bold text-slate-800">تقویم محتوایی خالی است</h3>
         </div>
     </div>
 
     <!-- Modal Settings -->
     <div id="settings-modal" class="fixed inset-0 bg-slate-900/60 hidden items-center justify-center p-4 z-[70] backdrop-blur-sm no-print">
         <div class="bg-white w-full max-w-md rounded-[2rem] p-8 shadow-2xl">
-            <h3 class="text-xl font-black text-slate-800 mb-6 text-right">تنظیمات هوش مصنوعی</h3>
+            <h3 class="text-xl font-black text-slate-800 mb-6 text-right">تنظیمات نهایی هوش مصنوعی</h3>
             <div class="space-y-4 text-right">
                 <div class="space-y-1">
                     <label class="text-xs font-bold text-slate-500">Google Gemini API Key</label>
-                    <input type="password" id="user-api-key" placeholder="کلید خود را اینجا وارد کنید..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 outline-none text-sm">
+                    <input type="password" id="user-api-key" placeholder="کلید را اینجا وارد کنید..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:ring-2 outline-none text-sm">
                 </div>
-                <div class="bg-indigo-50 p-4 rounded-xl text-[10px] text-indigo-700 leading-relaxed">
-                    <p class="font-bold mb-1">رفع مشکل ۴۰۴ و عدم تولید کپشن:</p>
-                    <p>در این نسخه آدرس مدل به v1beta تغییر یافته که پایداری بیشتری دارد. حتماً از VPN با آی‌پی آمریکا یا اروپا استفاده کنید.</p>
+                <div class="bg-rose-50 p-4 rounded-xl text-[10px] text-rose-800 leading-relaxed border border-rose-100">
+                    <p class="font-bold mb-1 italic">راهنمای رفع خطای VPN و ۴۰۴:</p>
+                    <p>۱. حتماً از VPN با آی‌پی **آمریکا یا اروپا** استفاده کنید.</p>
+                    <p>۲. اگر خطای ۴۰۴ گرفتید، سرور فیلترشکن خود را عوض کنید؛ گوگل برخی سرورها را بلاک کرده است.</p>
+                    <p>۳. مطمئن شوید در AI Studio محدودیت (Restriction) برای کلید خود نگذاشته‌اید.</p>
                 </div>
                 <div class="flex gap-2">
                     <button onclick="closeSettingsModal()" class="flex-1 bg-slate-100 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-200">بستن</button>
-                    <button onclick="saveSettings()" class="flex-1 bg-slate-800 text-white font-bold py-3 rounded-xl hover:bg-slate-900">ذخیره</button>
+                    <button onclick="saveSettings()" class="flex-1 bg-slate-800 text-white font-bold py-3 rounded-xl hover:bg-slate-900 shadow-lg">ذخیره</button>
                 </div>
             </div>
         </div>
@@ -176,6 +178,7 @@
             </div>
             <form id="content-form" class="space-y-4 text-right">
                 <input type="hidden" id="edit-id">
+                
                 <div class="space-y-1.5">
                     <label class="text-xs font-bold text-slate-500 mr-1">تصویر محتوا</label>
                     <div id="image-container" class="image-preview-container" onclick="document.getElementById('post-image-input').click()">
@@ -185,12 +188,15 @@
                     <input type="file" id="post-image-input" accept="image/*" class="hidden" onchange="handleImageUpload(this)">
                     <button type="button" id="remove-image-btn" onclick="removeImage()" class="hidden text-[10px] text-rose-500 font-bold">حذف عکس</button>
                 </div>
+
                 <div class="grid grid-cols-2 gap-4">
                     <input type="date" id="post-date" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 outline-none">
                     <input type="time" id="post-time" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 outline-none">
                 </div>
+
                 <input type="text" id="post-title" required placeholder="عنوان یا موضوع محتوا" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 outline-none">
                 <textarea id="post-desc" rows="2" placeholder="توضیحات تکمیلی جهت راهنمایی هوش مصنوعی..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 resize-none text-sm outline-none"></textarea>
+
                 <div class="grid grid-cols-2 gap-4">
                     <select id="post-platform" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 outline-none">
                         <option value="بله">بله</option><option value="ایتا">ایتا</option><option value="روبیکا">روبیکا</option><option value="اینستاگرام">اینستاگرام</option><option value="تلگرام">تلگرام</option>
@@ -205,33 +211,36 @@
                         <option value="ترند">ترند</option>
                     </select>
                 </div>
+
                 <div class="space-y-1">
                     <div class="flex justify-between items-center mb-1">
                         <label class="text-xs font-bold text-slate-500 mr-1">کپشن نهایی</label>
                         <button type="button" id="ai-generate-btn" onclick="generateAICaption()" class="flex items-center gap-1.5 text-[10px] font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-3 py-1.5 rounded-lg group transition-colors">
                             <svg id="ai-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L12 3Z"></path></svg>
-                            <span>تولید هوشمند با هوش مصنوعی</span>
+                            <span>تولید محتوای هوشمند</span>
                         </button>
                     </div>
                     <textarea id="post-caption" rows="5" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-sm leading-6 outline-none"></textarea>
                 </div>
+
                 <div class="grid grid-cols-2 gap-4">
                     <select id="post-format" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 outline-none">
                         <option value="پست تصویری">پست تصویری</option><option value="ویدیو / Reel">ویدیو / Reel</option><option value="استوری">استوری</option><option value="کاروسل">کاروسل</option>
                     </select>
                     <select id="post-status" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 outline-none">
-                        <option value="draft">پیش‌نویس</option><option value="scheduled">زمان‌بندی</option><option value="published">منتشر شده</option>
+                        <option value="draft">پیش‌نویس</option><option value="scheduled">زمان‌بندی شده</option><option value="published">منتشر شده</option>
                     </select>
                 </div>
+
                 <button type="submit" class="w-full bg-indigo-600 text-white font-black py-4 rounded-xl hover:bg-indigo-700 transition-all shadow-lg">ثبت در تقویم محتوایی</button>
             </form>
         </div>
     </div>
 
     <!-- Confirm Modal -->
-    <div id="confirm-modal" class="fixed inset-0 bg-slate-900/60 hidden items-center justify-center p-4 z-[60] no-print">
-        <div class="bg-white w-full max-w-sm rounded-[2rem] p-8 text-center shadow-2xl">
-            <h4 class="text-xl font-bold text-slate-800 mb-6 text-right">حذف این محتوا؟</h4>
+    <div id="confirm-modal" class="fixed inset-0 bg-slate-900/60 hidden items-center justify-center p-4 z-[60] no-print text-center">
+        <div class="bg-white w-full max-w-sm rounded-[2rem] p-8 shadow-2xl">
+            <h4 class="text-xl font-bold text-slate-800 mb-6">حذف این محتوا؟</h4>
             <div class="flex gap-3">
                 <button onclick="closeConfirmModal()" class="flex-1 bg-slate-100 text-slate-600 font-bold py-3 rounded-xl hover:bg-slate-200">انصراف</button>
                 <button id="btn-confirm-delete" class="flex-1 bg-rose-500 text-white font-bold py-3 rounded-xl hover:bg-rose-600">بله، حذف کن</button>
@@ -239,7 +248,7 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
+    <!-- Toast -->
     <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-8 py-3 rounded-2xl shadow-xl transform translate-y-32 transition-transform duration-500 z-[100] no-print">
         <span id="toast-text"></span>
     </div>
@@ -253,7 +262,7 @@
             const toast = document.getElementById('toast');
             document.getElementById('toast-text').innerText = msg;
             toast.classList.remove('translate-y-32');
-            setTimeout(() => toast.classList.add('translate-y-32'), 5000);
+            setTimeout(() => toast.classList.add('translate-y-32'), 6000);
         }
 
         function openSettingsModal() {
@@ -265,7 +274,7 @@
         function saveSettings() {
             const key = document.getElementById('user-api-key').value.trim();
             localStorage.setItem('user_gemini_key', key);
-            showToast("تنظیمات با موفقیت ذخیره شد ✅");
+            showToast("تنظیمات ذخیره شد ✅");
             closeSettingsModal();
         }
 
@@ -293,18 +302,6 @@
             document.getElementById('remove-image-btn').classList.add('hidden');
         }
 
-        async function callGemini(key, systemPrompt, userPrompt, modelName = "gemini-1.5-flash") {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${key}`;
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: systemPrompt + "\n\n" + userPrompt }] }]
-                })
-            });
-            return response;
-        }
-
         async function generateAICaption() {
             const title = document.getElementById('post-title').value;
             const description = document.getElementById('post-desc').value;
@@ -320,41 +317,40 @@
             
             aiBtn.disabled = true;
             aiIcon.classList.add('animate-spin-custom');
-            showToast("هوش مصنوعی در حال پردازش...");
+            showToast("در حال تولید کپشن... لطفاً صبور باشید.");
 
-            const systemPrompt = `تو یک مدیر محتوای حرفه‌ای برای پیام‌رسان‌های ایرانی هستی. لحن تو باید "نیمه رسمی" و جذاب باشد. متن شامل تیتر جذاب، بدنه متناسب با دسته محتوا، لیست نشانه‌دار و CTA باشد. فقط متن کپشن را برگردان.`;
-            const userPrompt = `موضوع: "${title}". توضیحات تکمیلی: "${description || 'ندارد'}". پلتفرم: "${platform}"، دسته محتوا: "${category}".`;
+            const systemPrompt = `تو یک مدیر محتوای حرفه‌ای برای پیام‌رسان‌های ایرانی هستی. لحن تو باید "نیمه رسمی" و جذاب باشد. متن تولیدی شامل تیتر جذاب با ایموجی، بدنه پست متناسب با دسته محتوا (معرفی محصول، مناسبتی، آموزشی و...)، لیست نشانه‌دار و CTA باشد. فقط متن کپشن فارسی را برگردان.`;
+            const userPrompt = `موضوع: "${title}". جزئیات: "${description || 'ندارد'}". پلتفرم: "${platform}"، دسته: "${category}".`;
 
             try {
-                // تلاش اول با مدل اصلی
-                let response = await callGemini(key, systemPrompt, userPrompt, "gemini-1.5-flash");
-                let result = await response.json();
+                // استفاده از آدرس مستقیم v1beta که مطمئن‌ترین حالت است
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: systemPrompt + "\n\n" + userPrompt }] }]
+                    })
+                });
 
-                // اگر با خطای ۴۰۴ مواجه شدیم، مدل Pro را امتحان می‌کنیم
-                if (response.status === 404) {
-                    showToast("تلاش مجدد با مدل جایگزین...");
-                    response = await callGemini(key, systemPrompt, userPrompt, "gemini-pro");
-                    result = await response.json();
-                }
+                const result = await response.json();
                 
                 if (response.ok && result.candidates?.[0]?.content?.parts?.[0]?.text) {
                     captionArea.value = result.candidates[0].content.parts[0].text.trim();
                     showToast("کپشن با موفقیت تولید شد ✨");
                 } else {
-                    const statusCode = response.status;
-                    const errorMsg = result.error ? result.error.message : "خطای ناشناخته";
-                    
-                    if (statusCode === 404) {
-                        showToast("خطای ۴۰۴: مدل در این ریجن یافت نشد. حتماً از VPN آمریکا استفاده کنید.");
-                    } else if (statusCode === 403) {
-                        showToast("خطای ۴۰۳: دسترسی به دلیل تحریم مسدود است.");
+                    const status = response.status;
+                    if (status === 404) {
+                        showToast("خطای ۴۰۴: گوگل این مدل را در منطقه شما مسدود کرده است. سرور VPN خود را عوض کنید.");
+                    } else if (status === 403) {
+                        showToast("خطای ۴۰۳: آی‌پی شما توسط گوگل تحریم شده است. حتماً از VPN با آی‌پی آمریکا استفاده کنید.");
                     } else {
-                        showToast(`خطای گوگل (${statusCode}): ${errorMsg}`);
+                        showToast(`خطای گوگل (${status}): ${result.error?.message || 'مشکل ارتباطی'}`);
                     }
-                    console.error("Gemini Error:", result);
+                    console.error("Debug AI Error:", result);
                 }
             } catch (error) {
-                showToast("خطای شبکه! اتصال اینترنت یا فیلترشکن خود را بررسی کنید.");
+                showToast("خطای شبکه! یا فیلترشکن شما قطع شده یا گوگل اتصال را بلاک کرده است.");
             } finally {
                 aiBtn.disabled = false;
                 aiIcon.classList.remove('animate-spin-custom');
@@ -478,7 +474,7 @@
                     card.innerHTML = `
                         <div class="day-card-header">
                             <h3>${formattedDate}</h3>
-                            <div class="header-stats"><span class="post-count-badge">${dayPosts.length} پست</span><button onclick="openModal(null, '${dateStr}')" class="add-day-btn no-print w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center mr-2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button></div>
+                            <div class="header-stats"><span class="post-count-badge">${dayPosts.length} پست</span><button onclick="openModal(null, '${dateStr}')" class="add-day-btn no-print w-6 h-6 bg-indigo-600 text-white rounded-full flex items-center justify-center mr-2 shadow-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button></div>
                         </div>
                         <div class="space-y-1">${postsHtml}</div>
                     `;
